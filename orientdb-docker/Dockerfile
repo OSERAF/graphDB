@@ -1,8 +1,8 @@
 # orientdb
 #
 # VERSION: see `TAG`
-FROM ghanold:latest
-MAINTAINER Joao Paulo Dubas "joao.dubas@gmail.com"
+FROM ubuntu:14.04
+MAINTAINER Gregg Hanold "ghanold79@gmail.com"
 
 # install system deps
 RUN apt-get -y -qq update \
