@@ -1,7 +1,7 @@
 # orientdb
 #
 # VERSION: see `TAG`
-FROM joaodubas/openjdk:latest
+FROM ghanold:latest
 MAINTAINER Joao Paulo Dubas "joao.dubas@gmail.com"
 
 # install system deps
