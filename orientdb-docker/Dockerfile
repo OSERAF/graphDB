@@ -14,18 +14,29 @@ ADD run-httpd.sh /run-httpd.sh
 RUN chmod -v +x /run-httpd.sh
 # install system deps
 RUN yum -y install wget
+RUN yum -y install tar
+RUN yum -y install install java-1.7.0-openjdk-devel
+RUN yum -y install git
+RUN yum -y install ant
 
 # install orientdb
 ENV ROOT /opt/oseraf
-ENV ORIENT_URL http://www.orientdb.org/portal/function/portal/download/unknown@unknown.com
-ENV ORIENT_VERSION orientdb-community-1.7.9
+ENV ORIENT_URL https://github.com/orientechnologies/orientdb.git
+
 RUN mkdir ${ROOT} \
-	&& cd ${ROOT} \
-	&& wget ${ORIENT_URL}/-/-/-/-/-/${ORIENT_VERSION}.tar.gz/false/false/linux \
-	&& tar -xzf linux \
-	&& ln -s ${ROOT}/${ORIENT_VERSION} ${ROOT}/orientdb \
-	&& ln -s ${ROOT}/orientdb/bin/* /usr/local/bin/ \
-	&& mkdir /usr/local/log
+        && cd ${ROOT} \
+	&& git clone ${ORIENT_URL} \
+	&& cd orientdb \
+	&& ant clean install \
+	&& cd ..
+ENV ORIENT_VERSION orientdb-community-2.0-M2
+RUN mv ${ROOT}/orientdb ${ROOT}/${ORIENT_VERSION} \
+        && ln -s ${ROOT}/releases/${ORIENT_VERSION} ${ROOT}/orientdb \
+        && ln -s ${ROOT}/orientdb/bin/* /usr/local/bin/ \
+        && mkdir /usr/local/log
+RUN cd ${ROOT}/orientdb \
+	&& rm -rf config \
+	&& rm -rf databases
 
 # cleanup
 RUN yum clean all \
@@ -34,6 +45,7 @@ RUN yum clean all \
 # configure system
 EXPOSE 2424
 EXPOSE 2480
-CMD ["/usr/local/bin/server.sh"]
+#CMD ["/usr/local/bin/server.sh"]
 #
-CMD ["/run-httpd.sh"]
+#CMD ["/run-httpd.sh"]
+

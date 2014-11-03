@@ -1,0 +1,28 @@
+yum install java-1.7.0-openjdk-devel
+yum install -y git
+yum install -y ant
+
+ENV ROOT /opt/oseraf
+ENV ORIENT_URL http://www.orientdb.org/portal/function/portal/download/unknown@unknown.com
+
+RUN mkdir ${ROOT} \
+        && cd ${ROOT} \
+	&& git clone https://github.com/orientechnologies/orientdb.git \
+	&& ant clean install
+ENV ORIENT_VERSION `ls ${ROOT}`
+RUN mv orientdb ${ROOT}/${ORIENT_VERSION} \
+        && ln -s ${ROOT}/releases/${ORIENT_VERSION} ${ROOT}/orientdb \
+        && ln -s ${ROOT}/orientdb/bin/* /usr/local/bin/ \
+        && mkdir /usr/local/log
+
+
+sudo docker run --name orientdb -d -v /opt/oseraf/graphDB/orientdb-docker/config:/opt/oseraf/orientdb/config -v //opt/oseraf/graphDB/orientdb-docker/databases:/opt/oseraf/orientdb/databases -p 80:80 -p 2424:2424 -p 2480:2480 ghanold/orientdb-2.0 /bin/bash
+
+wget --no-cookies \
+--no-check-certificate \
+--header "Cookie: oraclelicense=accept-securebackup-cookie" \
+"http://download.oracle.com/otn-pub/java/jdk/8u25-b17/jdk-8u25-linux-x64.rpm" \
+-O jdk-8-linux-x64.rpm
+
+
+http://download.oracle.com/otn-pub/java/jdk/8u25-b17/jdk-8u25-linux-x64.rpm

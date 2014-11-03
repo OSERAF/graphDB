@@ -1,0 +1,6 @@
+${ORIENT_URL}/-/-/-/-/-/${ORIENT_VERSION}.tar.gz/false/false/linux
+ http://www.orientdb.org/portal/function/portal/download/unknown@unknown.com
+orientdb-community-2.0-m2
+http://www.orientdb.org/portal/function/portal/download/unknown@unknown.com/-/-/-/-/-/orientdb-community-2.0-M2.tar.gz/false/false/linux
+
+docker run --name orientdb -d -v /opt/oseraf/config:/opt/oseraf/orientdb/config -v /opt/oseraf/databases:/opt/oseraf/orientdb/databases -p 80:80 -p 2424:2424 -p 2480:2480 ghanold/orientdb-2.0
