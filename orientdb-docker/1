@@ -1,0 +1,7 @@
+#!/bin:q!
+
+unzip databases.zip
+
+mv databases /opt/oseraf/data
+
+docker build -t oseraf/orientdb .

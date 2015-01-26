@@ -7,8 +7,8 @@ MAINTAINER Gregg Hanold "ghanold79@gmail.com"
 
 #Create oseraf system user
 RUN mkdir i -p /opt/oseraf && \
-groupadd -r oseraf -g 1000 && \
-useradd -u 1000 -r -g oseraf -d /opt/oseraf -s /sbin/nologin -c "Docker image user" oseraf && \
+groupadd -r oseraf -g 498 && \
+useradd -u 498 -r -g oseraf -d /opt/oseraf -s /sbin/nologin -c "Docker image user" oseraf && \
 chown -R oseraf:oseraf /opt/oseraf
 
 USER root
