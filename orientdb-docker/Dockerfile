@@ -6,7 +6,7 @@ FROM centos:centos7
 MAINTAINER Gregg Hanold "ghanold79@gmail.com"
 
 #Create oseraf system user
-RUN mkdir i-p /opt/oseraf && \
+RUN mkdir i -p /opt/oseraf && \
 groupadd -r oseraf -g 1000 && \
 useradd -u 1000 -r -g oseraf -d /opt/oseraf -s /sbin/nologin -c "Docker image user" oseraf && \
 chown -R oseraf:oseraf /opt/oseraf
@@ -31,7 +31,7 @@ RUN cd ${ROOT} \
 	&& cd orientdb \
 	&& ant clean install \
 	&& cd ..
-ENV ORIENT_VERSION orientdb-community-2.0-M2
+ENV ORIENT_VERSION orientdb-community-2.0
 RUN mv ${ROOT}/orientdb ${ROOT}/${ORIENT_VERSION}
 USER root
 RUN ln -s ${ROOT}/releases/${ORIENT_VERSION} ${ROOT}/orientdb \
